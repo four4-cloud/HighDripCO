@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNEAKERS — HIGH DRIP CO.</title>
+<meta name="description" content="Curadoria de sneakers High Drip Company.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+:root{--black:#050505;--white:#f4f4f2;--muted:#858585;--line:#252525}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:Inter,Arial,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;width:100%}
+body:before{content:"";position:fixed;left:0;top:0;width:100%;height:2px;background:#fff;transform:scaleX(var(--progress,0));transform-origin:left;z-index:100}
+.noise{position:fixed;inset:0;pointer-events:none;z-index:80;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{width:min(1400px,calc(100% - 72px));margin:auto}
+header{position:fixed;top:0;left:0;right:0;z-index:60;padding:25px 0;mix-blend-mode:difference}
+.nav{display:flex;align-items:center;justify-content:space-between}
+.nav-logo{width:112px;line-height:0}.nav-logo img{width:100%;filter:invert(1)}
+.admin-btn{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;display:flex;gap:10px;align-items:center;opacity:.82}.admin-btn:hover{opacity:1}.admin-icon{width:28px;height:28px;border:1px solid #777;border-radius:50%;display:grid;place-items:center;font-size:14px}.back{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;display:flex;gap:12px;align-items:center;opacity:.8}.back:hover{opacity:1}
+.hero{min-height:88vh;padding:170px 0 90px;display:flex;flex-direction:column;justify-content:flex-end;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#777;margin-bottom:28px}
+.hero h1{font-size:clamp(85px,17vw,245px);line-height:.72;letter-spacing:-.105em;text-transform:uppercase;font-weight:900;max-width:1200px}
+.hero h1 span{color:#666}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-top:70px}
+.hero-bottom p{max-width:440px;color:#aaa;font-size:14px;line-height:1.7}.hero-count{font-size:10px;letter-spacing:.25em;color:#666;text-transform:uppercase}
+.marquee{overflow:hidden;background:#fff;color:#000;padding:18px 0;white-space:nowrap}
+.marquee-track{display:inline-block;animation:marquee 24s linear infinite}.marquee span{font-size:10px;font-weight:900;letter-spacing:.3em;text-transform:uppercase;margin-right:60px}@keyframes marquee{to{transform:translateX(-50%)}}
+.catalog{padding:110px 0 160px}
+.catalog-head{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:2px}
+.catalog-head h2{font-size:clamp(35px,5vw,70px);letter-spacing:-.07em;text-transform:uppercase;line-height:.85}.catalog-head span{font-size:9px;letter-spacing:.2em;color:#666;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}
+.card{background:#0a0a0a;position:relative;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.visual{position:relative;aspect-ratio:1/1.08;overflow:hidden;background:#111}
+.visual img{height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.16,1,.3,1),filter .5s ease;filter:saturate(.96)}
+.card:hover .visual img{transform:scale(1.045);filter:saturate(1.05)}
+.card:after{content:"VER DETALHES ↗";position:absolute;left:14px;bottom:92px;background:#fff;color:#000;padding:9px 11px;font-size:8px;font-weight:800;letter-spacing:.16em;opacity:0;transform:translateY(8px);transition:.35s;pointer-events:none}
+.card:hover:after{opacity:1;transform:none}
+.index{position:absolute;left:14px;top:14px;z-index:2;font-size:8px;letter-spacing:.2em;background:#050505;color:#fff;padding:8px 9px}
+.info{display:grid;grid-template-columns:1fr;gap:13px;align-items:end;padding:16px 15px 17px;border-top:1px solid var(--line)}
+.info h3{font-size:clamp(16px,1.35vw,22px);letter-spacing:-.05em;text-transform:uppercase}.info p{font-size:8px;color:#777;letter-spacing:.16em;text-transform:uppercase;margin-top:6px}
+.interest{border:1px solid #444;padding:11px 12px;font-size:8px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;transition:.3s;white-space:nowrap;text-align:center}.interest:hover{background:#fff;color:#000;border-color:#fff}
+.note{padding:60px 0 0;color:#666;font-size:10px;letter-spacing:.18em;text-transform:uppercase;line-height:1.7;display:flex;justify-content:space-between;gap:30px}
+.note strong{color:#aaa}
+.footer-cta{border-top:1px solid var(--line);padding:110px 0;text-align:center}.footer-cta h2{font-size:clamp(55px,10vw,150px);line-height:.76;letter-spacing:-.09em;text-transform:uppercase}.footer-cta p{max-width:430px;margin:35px auto 0;color:#888;font-size:13px;line-height:1.7}.wa{display:inline-flex;margin-top:30px;border:1px solid #555;padding:17px 21px;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;transition:.3s}.wa:hover{background:#fff;color:#000;border-color:#fff}
+.reveal{opacity:0;transform:translateY(45px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}.reveal.visible{opacity:1;transform:none}
+
+.brands{padding:110px 0 160px}.brands-head{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:2px}.brands-head h2{font-size:clamp(35px,5vw,70px);letter-spacing:-.07em;text-transform:uppercase;line-height:.85}.brands-head span{font-size:9px;letter-spacing:.2em;color:#666;text-transform:uppercase}.brand-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}.brand{min-height:220px;background:#0a0a0a;display:flex;align-items:flex-end;justify-content:space-between;padding:24px;position:relative;overflow:hidden;transition:background .45s ease}.brand:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.07),transparent 65%);transform:translateX(-100%);transition:transform .8s cubic-bezier(.16,1,.3,1)}.brand:hover:before{transform:translateX(100%)}.brand:hover{background:#111}.brand-name{font-size:clamp(30px,4vw,65px);font-weight:900;letter-spacing:-.08em;text-transform:uppercase}.brand-index{position:absolute;left:24px;top:24px;font-size:8px;letter-spacing:.2em;color:#666}.brand-arrow{font-size:22px;transform:translate(-2px,2px);transition:transform .35s}.brand:hover .brand-arrow{transform:translate(4px,-4px)}.catalog{display:none}.brand-note{padding-top:35px;color:#666;font-size:10px;letter-spacing:.16em;text-transform:uppercase;line-height:1.7}
+@media(max-width:1000px){.brand-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:500px){.brands{padding:75px 0 100px}.brand-grid{grid-template-columns:1fr}.brand{min-height:145px;padding:18px}.brand-index{left:18px;top:18px}.brand-name{font-size:39px}.brand-note{font-size:8px}}
+
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.wrap{width:calc(100% - 38px)}header{padding:19px 0}.nav-logo{width:92px}.back{font-size:8px}.hero{min-height:75vh;padding:140px 0 65px}.hero h1{font-size:20vw}.hero-bottom{margin-top:55px;flex-direction:column;align-items:flex-start;gap:22px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.info{padding:14px 12px 15px}.interest{padding:10px 8px;font-size:7px}.card:after{display:none}.note{flex-direction:column;padding-top:40px}}
+@media(max-width:500px){.hero{min-height:72vh}.hero h1{font-size:23vw}.catalog{padding:75px 0 100px}.grid{gap:1px}.visual{aspect-ratio:1/1.05}.index{left:9px;top:9px;padding:6px 7px;font-size:7px}.info{padding:11px 10px 12px;gap:9px}.info h3{font-size:13px}.info p{font-size:6.5px;letter-spacing:.11em}.interest{padding:9px 7px;font-size:6.5px;letter-spacing:.1em}.catalog-head h2{font-size:42px}.footer-cta{padding:85px 0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.marquee-track{animation:none}.reveal{opacity:1;transform:none;transition:none}.visual img{transition:none}}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<header><div class="wrap nav">
+  <a class="nav-logo" href="index.html" aria-label="Voltar para High Drip"><img src="logo-high-drip-recortada.png" alt="High Drip Company"></a>
+  <div style="display:flex;align-items:center;gap:22px"><a class="admin-btn" href="admin.html" aria-label="Área administrativa"><span class="admin-icon">♙</span><span>Área admin</span></a><a class="back" href="index.html">← Voltar ao site</a></div>
+</div></header>
+
+<main>
+<section class="hero">
+ <div class="wrap">
+  <div class="eyebrow reveal">High Drip Company / Curadoria / 2026</div>
+  <h1 class="reveal">The<br><span>Drip</span><br>Collection.</h1>
+  <div class="hero-bottom reveal">
+   <p>Uma seleção de sneakers para quem entende que o tênis não completa o look. <strong>Ele começa o look.</strong></p>
+   <div class="hero-count">10 peças / seleção atual</div>
+  </div>
+ </div>
+</section>
+
+<div class="marquee"><div class="marquee-track">
+ <span>HIGH DRIP</span><span>SNEAKERS</span><span>SELECTED DROPS</span><span>STREET CULTURE</span><span>HIGH DRIP</span><span>SNEAKERS</span><span>SELECTED DROPS</span><span>STREET CULTURE</span>
+</div></div>
+
+<section class="brands">
+ <div class="wrap">
+  <div class="brands-head reveal"><h2>Escolha<br>sua marca.</h2><span>01 / 05 — Sneakers</span></div>
+  <div class="brand-grid">
+   <a class="brand reveal" href="#catalogo-produtos" data-brand="Nike"><span class="brand-index">01</span><strong class="brand-name">Nike</strong><span class="brand-arrow">↗</span></a>
+   <a class="brand reveal" href="#catalogo-produtos" data-brand="Adidas"><span class="brand-index">02</span><strong class="brand-name">Adidas</strong><span class="brand-arrow">↗</span></a>
+   <a class="brand reveal" href="#catalogo-produtos" data-brand="Puma"><span class="brand-index">03</span><strong class="brand-name">Puma</strong><span class="brand-arrow">↗</span></a>
+   <a class="brand reveal" href="#catalogo-produtos" data-brand="New Balance"><span class="brand-index">04</span><strong class="brand-name">New Balance</strong><span class="brand-arrow">↗</span></a>
+   <a class="brand reveal" href="#catalogo-produtos" data-brand="On"><span class="brand-index">05</span><strong class="brand-name">On</strong><span class="brand-arrow">↗</span></a>
+   <a class="brand reveal" href="#catalogo-produtos" data-brand="Todos"><span class="brand-index">00</span><strong class="brand-name">Todos</strong><span class="brand-arrow">↗</span></a>
+  </div>
+  <div class="brand-note"><strong>Selecione uma marca</strong> — depois mostramos apenas os modelos disponíveis daquela curadoria.</div>
+ </div>
+</section>
+
+<section class="catalog" id="catalogo-produtos">
+ <div class="wrap">
+  <div class="catalog-head reveal"><h2>Todos<br><span>os pares.</span></h2><span id="catalog-status">Catálogo atual</span></div>
+  <div class="grid" id="product-grid"></div>
+  <div class="note"><span><strong>Disponibilidade</strong><br>Consulte numeração e valor.</span><span id="product-count">0 produtos</span></div>
+ </div>
+</section>
+
+<section class="footer-cta"><div class="wrap">
+ <div class="eyebrow">High Drip Company / Showroom</div>
+ <h2>Experimenta.<br><span>Veste.</span><br>Repete.</h2>
+ <p>Escolha uma marca e encontre seu próximo par. A equipe confirma valor, numeração e disponibilidade pelo WhatsApp.</p>
+ <a class="wa" href="https://api.whatsapp.com/message/2PTSGOAG25RXO1?autoload=1&app_absent=0">Falar com a High Drip ↗</a>
+</div></section>
+</main>
+
+
+<script>
+const KEY='highdrip_products_v1';
+function productsFromHash(){try{const m=location.hash.match(/catalog-data=([^&]+)/);if(!m)return null;const d=JSON.parse(decodeURIComponent(m[1]));return Array.isArray(d)?d:null}catch(e){return null}}
+const hashProducts=productsFromHash();
+const defaults=[
+ {id:'01',brand:'Nike',name:'Sneaker 01',color:'Green / Blue',price:'',size:'',image:'sneaker-01.jpg'},
+ {id:'02',brand:'Adidas',name:'Sneaker 02',color:'Grey / Orange',price:'',size:'',image:'sneaker-02.jpg'},
+ {id:'03',brand:'Puma',name:'Sneaker 03',color:'Black / Brown',price:'',size:'',image:'sneaker-03.jpg'},
+ {id:'04',brand:'New Balance',name:'Sneaker 04',color:'Selected drop',price:'',size:'',image:'sneaker-04.jpg'},
+ {id:'05',brand:'On',name:'Sneaker 05',color:'Selected drop',price:'',size:'',image:'sneaker-05.jpg'},
+ {id:'06',brand:'Nike',name:'Sneaker 06',color:'Selected drop',price:'',size:'',image:'sneaker-06.jpg'},
+ {id:'07',brand:'Adidas',name:'Sneaker 07',color:'Selected drop',price:'',size:'',image:'sneaker-07.jpg'},
+ {id:'08',brand:'Puma',name:'Sneaker 08',color:'Selected drop',price:'',size:'',image:'sneaker-08.jpg'},
+ {id:'09',brand:'New Balance',name:'Sneaker 09',color:'Selected drop',price:'',size:'',image:'sneaker-09.jpg'},
+ {id:'10',brand:'On',name:'Sneaker 10',color:'Selected drop',price:'',size:'',image:'sneaker-10.jpg'}
+];
+let products=hashProducts || JSON.parse(localStorage.getItem(KEY)||'null') || defaults;
+if(hashProducts){try{localStorage.setItem(KEY,JSON.stringify(hashProducts))}catch(e){}}
+function render(filter='Todos'){const catalog=document.getElementById('catalogo-produtos');const grid=document.getElementById('product-grid'); if(!grid||!catalog)return; catalog.style.display='block'; const list=filter==='Todos'?products:products.filter(p=>p.brand===filter); grid.innerHTML=list.length?list.map((p,i)=>`<article class="card reveal visible"><div class="visual"><span class="index">${String(i+1).padStart(2,'0')}</span><img src="${p.image}" alt="${p.name} — ${p.brand}" loading="lazy"></div><div class="info"><div><h3>${p.name}</h3><p>${p.brand} · ${p.color||'Disponibilidade sob consulta'}</p></div><div><p>${p.price?('R$ '+p.price):'Consultar valor'}${p.size?' · '+p.size:''}</p><a class="interest" href="https://api.whatsapp.com/message/2PTSGOAG25RXO1?autoload=1&app_absent=0">Tenho interesse ↗</a></div></div></article>`).join(''):'<div style="padding:50px;color:#777;grid-column:1/-1">Nenhum produto cadastrado nesta marca.</div>'; document.getElementById('catalog-status').textContent=filter==='Todos'?'Catálogo atual':filter; document.getElementById('product-count').textContent=list.length+' '+(list.length===1?'produto':'produtos');}
+document.querySelectorAll('.brand[data-brand]').forEach(b=>b.addEventListener('click',(e)=>{
+ e.preventDefault();
+ const brand=b.dataset.brand;
+ render(brand);
+ history.replaceState(null,'','#catalogo-produtos');
+ requestAnimationFrame(()=>{const catalog=document.getElementById('catalogo-produtos');const top=catalog.getBoundingClientRect().top+window.scrollY-24;window.scrollTo({top,behavior:'smooth'});});
+}));
+render();
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!reduced){const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}}),{threshold:.1,rootMargin:'0px 0px -6%'});document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));}else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));function progress(){const max=Math.max(1,document.documentElement.scrollHeight-innerHeight);document.documentElement.style.setProperty('--progress',Math.min(1,scrollY/max));}addEventListener('scroll',progress,{passive:true});progress();
+</script>
+</body>
+</html>
