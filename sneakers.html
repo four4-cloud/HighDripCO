@@ -122,18 +122,14 @@ header{position:fixed;top:0;left:0;right:0;z-index:60;padding:25px 0;mix-blend-m
 
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-const firebaseConfig = {
-  apiKey: "AIzaSyBZEOwX_v5Rrl4QW2njVm4CdHBAKsYe4Dk",
-  authDomain: "high-drip-2b107.firebaseapp.com",
-  projectId: "high-drip-2b107",
-  storageBucket: "high-drip-2b107.firebasestorage.app",
-  messagingSenderId: "540766293921",
-  appId: "1:540766293921:web:e34acfa7f11ae328e145e0"
+const firebaseConfig={
+  apiKey:"AIzaSyBZEOwX_v5Rrl4QW2njVm4CdHBAKsYe4Dk",
+  authDomain:"high-drip-2b107.firebaseapp.com",
+  projectId:"high-drip-2b107",
+  storageBucket:"high-drip-2b107.firebasestorage.app",
+  messagingSenderId:"540766293921",
+  appId:"1:540766293921:web:e34acfa7f11ae328e145e0"
 };
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
 const defaults=[
  {id:'01',brand:'Nike',category:'Air Jordan',name:'Sneaker 01',color:'Green / Blue',price:'',size:'',image:'sneaker-01.jpg'},
  {id:'02',brand:'Adidas',category:'Campus',name:'Sneaker 02',color:'Grey / Orange',price:'',size:'',image:'sneaker-02.jpg'},
@@ -146,13 +142,59 @@ const defaults=[
  {id:'09',brand:'New Balance',category:'9060',name:'Sneaker 09',color:'Selected drop',price:'',size:'',image:'sneaker-09.jpg'},
  {id:'10',brand:'On',category:'Cloudtilt',name:'Sneaker 10',color:'Selected drop',price:'',size:'',image:'sneaker-10.jpg'}
 ];
-let products=[];let selectedBrand='Todos';let selectedCategory='Todos';
-function render(filter=selectedBrand,category=selectedCategory){selectedBrand=filter;selectedCategory=category;const catalog=document.getElementById('catalogo-produtos'),grid=document.getElementById('product-grid');if(!grid||!catalog)return;catalog.style.display='block';const base=filter==='Todos'?products:products.filter(p=>String(p.brand||'').toLowerCase()===String(filter).toLowerCase());const list=category==='Todos'?base:base.filter(p=>String(p.category||'').toLowerCase()===String(category).toLowerCase());grid.innerHTML=list.length?list.map((p,i)=>`<article class="card reveal visible"><div class="visual"><span class="index">${String(i+1).padStart(2,'0')}</span><img src="${p.image||''}" alt="${p.name||'Sneaker'} — ${p.brand||''}" loading="lazy"></div><div class="info"><div><h3>${p.name||''}</h3><p>${p.brand||''}${p.category?' · '+p.category:''} · ${p.color||'Disponibilidade sob consulta'}</p></div><div><p>${p.price?('R$ '+p.price):'Consultar valor'}${p.size?' · '+p.size:''}</p><a class="interest" href="https://api.whatsapp.com/message/2PTSGOAG25RXO1?autoload=1&app_absent=0">Tenho interesse ↗</a></div></div></article>`).join(''):'<div style="padding:50px;color:#777;grid-column:1/-1">Nenhum produto cadastrado nesta seleção.</div>';document.getElementById('catalog-status').textContent=category==='Todos'?(filter==='Todos'?'Catálogo atual':filter):category;document.getElementById('product-count').textContent=list.length+' '+(list.length===1?'produto':'produtos')}
-function renderSubcategories(brand){const sec=document.getElementById('subcategorias'),grid=document.getElementById('sub-grid');if(brand==='Todos'){sec.classList.remove('show');return}const cats=[...new Set(products.filter(p=>String(p.brand||'').toLowerCase()===brand.toLowerCase()).map(p=>(p.category||'').trim()).filter(Boolean))];document.getElementById('sub-title').textContent=brand;if(!cats.length){sec.classList.remove('show');return}sec.classList.add('show');grid.innerHTML=`<button class="sub-item active" data-category="Todos"><span class="sub-index">00</span><strong class="sub-name">Todos</strong><span class="sub-arrow">↗</span></button>`+cats.map((c,i)=>`<button class="sub-item" data-category="${c.replace(/"/g,'&quot;')}"><span class="sub-index">${String(i+1).padStart(2,'0')}</span><strong class="sub-name">${c}</strong><span class="sub-arrow">↗</span></button>`).join('');grid.querySelectorAll('.sub-item').forEach(b=>b.addEventListener('click',()=>{grid.querySelectorAll('.sub-item').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(brand,b.dataset.category);requestAnimationFrame(()=>document.getElementById('catalogo-produtos').scrollIntoView({behavior:'smooth',block:'start'}))}))}
+let products=[...defaults];let selectedBrand='Todos';let selectedCategory='Todos';
+function render(filter=selectedBrand,category=selectedCategory){
+ selectedBrand=filter;selectedCategory=category;
+ const catalog=document.getElementById('catalogo-produtos'),grid=document.getElementById('product-grid');if(!grid||!catalog)return;
+ catalog.style.display='block';
+ const base=filter==='Todos'?products:products.filter(p=>String(p.brand||'').toLowerCase()===String(filter).toLowerCase());
+ const list=category==='Todos'?base:base.filter(p=>String(p.category||'').toLowerCase()===String(category).toLowerCase());
+ grid.innerHTML=list.length?list.map((p,i)=>`<article class="card reveal visible"><div class="visual"><span class="index">${String(i+1).padStart(2,'0')}</span><img src="${p.image||''}" alt="${p.name||'Sneaker'} — ${p.brand||''}" loading="lazy"></div><div class="info"><div><h3>${p.name||''}</h3><p>${p.brand||''}${p.category?' · '+p.category:''} · ${p.color||'Disponibilidade sob consulta'}</p></div><div><p>${p.price?('R$ '+p.price):'Consultar valor'}${p.size?' · '+p.size:''}</p><a class="interest" href="https://api.whatsapp.com/message/2PTSGOAG25RXO1?autoload=1&app_absent=0">Tenho interesse ↗</a></div></div></article>`).join(''):'<div style="padding:50px;color:#777;grid-column:1/-1">Nenhum produto cadastrado nesta seleção.</div>';
+ document.getElementById('catalog-status').textContent=category==='Todos'?(filter==='Todos'?'Catálogo atual':filter):category;
+ document.getElementById('product-count').textContent=list.length+' '+(list.length===1?'produto':'produtos');
+}
+function renderSubcategories(brand){
+ const sec=document.getElementById('subcategorias'),grid=document.getElementById('sub-grid');
+ if(brand==='Todos'){sec.classList.remove('show');return}
+ const cats=[...new Set(products.filter(p=>String(p.brand||'').toLowerCase()===brand.toLowerCase()).map(p=>(p.category||'').trim()).filter(Boolean))];
+ document.getElementById('sub-title').textContent=brand;
+ if(!cats.length){sec.classList.remove('show');return}
+ sec.classList.add('show');
+ grid.innerHTML=`<button class="sub-item active" data-category="Todos"><span class="sub-index">00</span><strong class="sub-name">Todos</strong><span class="sub-arrow">↗</span></button>`+cats.map((c,i)=>`<button class="sub-item" data-category="${c.replace(/"/g,'&quot;')}"><span class="sub-index">${String(i+1).padStart(2,'0')}</span><strong class="sub-name">${c}</strong><span class="sub-arrow">↗</span></button>`).join('');
+ grid.querySelectorAll('.sub-item').forEach(b=>b.addEventListener('click',()=>{grid.querySelectorAll('.sub-item').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(brand,b.dataset.category);requestAnimationFrame(()=>document.getElementById('catalogo-produtos').scrollIntoView({behavior:'smooth',block:'start'}))}));
+}
 document.querySelectorAll('.brand[data-brand]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();const brand=b.dataset.brand;document.querySelectorAll('.brand').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderSubcategories(brand);render(brand,'Todos');history.replaceState(null,'','#catalogo-produtos');requestAnimationFrame(()=>{const catalog=document.getElementById('catalogo-produtos');const top=catalog.getBoundingClientRect().top+window.scrollY-24;window.scrollTo({top,behavior:'smooth'})})}));
-async function loadProducts(){try{const snap=await getDocs(collection(db,'products'));const remote=snap.docs.map(d=>({id:d.id,...d.data()}));products=remote.length?remote:defaults;render('Todos','Todos')}catch(e){console.error(e);products=defaults;render('Todos','Todos');const status=document.getElementById('catalog-status');if(status)status.textContent='Catálogo de demonstração'}}
-loadProducts();
-const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!reduced){const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}}),{threshold:.1,rootMargin:'0px 0px -6%'});document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))}else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));function progress(){const max=Math.max(1,document.documentElement.scrollHeight-innerHeight);document.documentElement.style.setProperty('--progress',Math.min(1,scrollY/max))}addEventListener('scroll',progress,{passive:true});progress();
+
+// Renderiza imediatamente para que o catálogo nunca fique vazio enquanto o Firebase carrega.
+render('Todos','Todos');
+
+async function loadFirebase(){
+ try{
+   const [{initializeApp},{getFirestore,collection,getDocs}]=await Promise.all([
+     import('https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js'),
+     import('https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js')
+   ]);
+   const app=initializeApp(firebaseConfig),db=getFirestore(app);
+   const snap=await getDocs(collection(db,'products'));
+   const remote=snap.docs.map(d=>({id:d.id,...d.data()}));
+   products=remote.length?remote:defaults;
+   render(selectedBrand,selectedCategory);
+   if(remote.length){
+     document.getElementById('catalog-status').textContent=selectedBrand==='Todos'?'Catálogo atualizado':selectedBrand;
+   }
+ }catch(e){
+   console.error('Firebase catálogo:',e);
+   products=[...defaults];
+   render(selectedBrand,selectedCategory);
+   const status=document.getElementById('catalog-status');
+   if(status)status.textContent='Catálogo local / conexão indisponível';
+ }
+}
+loadFirebase();
+
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduced){const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}}),{threshold:.1,rootMargin:'0px 0px -6%'});document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))}else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
+function progress(){const max=Math.max(1,document.documentElement.scrollHeight-innerHeight);document.documentElement.style.setProperty('--progress',Math.min(1,scrollY/max))}addEventListener('scroll',progress,{passive:true});progress();
 </script>
 </body>
 </html>
