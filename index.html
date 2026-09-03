@@ -236,48 +236,39 @@ body::before{
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.mega-type-inner{transition:none}.hero-logo-stage .logo-wrap,.hero-logo-stage .welcome,.hero-logo-stage .logo-caption,.hero-logo-stage .scroll,.about-photo,.store-photo,.final-logo{transform:none!important;transition:none!important}}
 
 
-/* MOBILE STABILITY PATCH */
+/* HIGH DRIP — MOBILE / IOS STABILITY */
 @media (pointer:coarse){
+  html,body{width:100%;min-width:0;overflow-x:hidden}
   body{cursor:auto}
   .cursor{display:none!important}
-  header{mix-blend-mode:normal}
-  .hero-logo-stage .logo-wrap{transform:none!important}
-  .about-photo,.store-photo,.final-logo{transform:none!important}
+  header{position:absolute;mix-blend-mode:normal;padding:16px 0}
+  .hero-logo-stage .logo-wrap{transform:none!important;transition:none!important}
+  .about-photo,.store-photo,.final-logo{transform:none!important;transition:none!important}
   .magnetic{transform:none!important}
+  a,.category-btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 }
 @media (max-width:520px){
-  html,body{width:100%;min-width:0;overflow-x:hidden}
   .wrap{width:calc(100% - 28px)}
-  header{padding:16px 0}
-  .nav{gap:12px}
-  .nav-links{gap:9px;font-size:7px;letter-spacing:.12em}
+  .nav-links{gap:10px;font-size:7px;letter-spacing:.12em}
+  .nav-links a:nth-child(n+3){display:none}
   .nav-logo{width:86px}
-  .hero-logo-stage{height:100svh;min-height:560px}
-  .hero-logo-stage .welcome{top:15%;max-width:90vw;text-align:center}
-  .hero-logo-stage .logo-wrap{width:88vw;margin-top:34px}
-  .hero-logo-stage .logo-caption{left:14px;bottom:18px;max-width:45vw}
-  .hero-logo-stage .scroll{right:14px;bottom:18px}
+  .hero-logo-stage{height:100svh;min-height:600px}
+  .hero-logo-stage .welcome{top:15%;font-size:10px;letter-spacing:.22em;z-index:10}
+  .hero-logo-stage .logo-wrap{width:88vw;margin-top:48px}
+  .hero-logo-stage .logo-caption{left:14px;bottom:18px;max-width:48vw;font-size:8px}
+  .hero-logo-stage .scroll{right:14px;bottom:18px;font-size:8px}
   .black-intro{padding:76px 0 90px}
   .intro-title{font-size:clamp(48px,15vw,68px)}
-  .intro-grid{margin-top:48px}
-  .intro-copy{font-size:15px}
-  .mega-type{height:34vw;min-height:130px}
-  .mega-type-inner{font-size:18vw}
-  .products{padding:90px 0}
-  .section-head{margin-bottom:38px}
-  .category-btn{grid-template-columns:38px minmax(0,1fr) 25px;min-height:92px;padding:0 4px}
+  .intro-grid{grid-template-columns:1fr;margin-top:48px}
+  .product-grid{grid-template-columns:1fr}
+  .category-btn{grid-template-columns:38px minmax(0,1fr) 25px;min-height:105px;padding:0 4px}
   .category-btn strong{font-size:clamp(30px,10.5vw,46px);white-space:nowrap}
   .category-btn:hover{padding-left:4px}
-  .about{padding:90px 0}
+  .about-grid,.showroom-grid{grid-template-columns:1fr;gap:45px}
   .about-photo{height:390px}
-  .showroom{padding:90px 0}
   .store-photo{height:330px}
   .final{min-height:70svh}
   .final h2{font-size:21vw}
-  footer{padding-bottom:28px}
-}
-@media (max-width:850px){
-  .hero-logo-stage{min-height:600px}
 }
 
 </style>
@@ -390,7 +381,7 @@ body::before{
 <script>
 const cursor=document.querySelector('.cursor');
 
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.matchMedia('(pointer: coarse)').matches;
 
 /* Cursor */
 if(matchMedia('(pointer:fine)').matches && !reducedMotion){
@@ -427,7 +418,7 @@ function updateScrollEffects(){
   document.documentElement.style.setProperty('--scroll-progress',Math.min(1,Math.max(0,scrollY/docMax)));
 
   const hero=document.querySelector('.hero-logo-stage');
-  if(hero && !reducedMotion && matchMedia('(pointer:fine)').matches){
+  if(hero && !reducedMotion){
     const heroH=Math.max(1,hero.offsetHeight);
     const p=Math.min(1,Math.max(0,scrollY/heroH));
     hero.style.setProperty('--hero-scale',(1 - p*.17).toFixed(3));
@@ -444,7 +435,7 @@ function updateScrollEffects(){
     if(scrollHint) scrollHint.style.opacity=String(Math.max(0,1-p*3));
   }
 
-  if(!reducedMotion && matchMedia('(pointer:fine)').matches){
+  if(!reducedMotion){
     document.querySelectorAll('.about-photo,.store-photo').forEach(img=>{
       const r=img.getBoundingClientRect();
       const center=r.top+r.height/2;
@@ -488,5 +479,6 @@ document.querySelectorAll('.category-btn').forEach(btn=>{
   });
 });
 
+</script>
 </body>
 </html>
