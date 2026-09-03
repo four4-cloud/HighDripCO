@@ -112,6 +112,17 @@ footer{padding:28px 0 40px;color:#555;font-size:9px;letter-spacing:.15em;text-tr
  footer{flex-direction:column;gap:14px}
 }
 
+/* MOBILE SAFETY PATCH — garante o hero visível em Safari/iOS */
+@media(max-width:850px){
+ .hero-logo-stage{background:#f5f5f3 !important;color:#050505 !important;opacity:1 !important;visibility:visible !important;}
+ .hero-logo-stage .logo-wrap,.hero-logo-stage .welcome,.hero-logo-stage .logo-caption,.hero-logo-stage .scroll{opacity:1 !important;visibility:visible !important;}
+ .hero-logo-stage .logo-wrap{transform:none !important;}
+ .hero-logo-stage img{display:block !important;opacity:1 !important;visibility:visible !important;filter:none !important;}
+ header{mix-blend-mode:normal;}
+ header .nav-links a, header .nav-logo{color:#050505;}
+ .hero-logo-stage .scroll::after{background:#050505;}
+}
+
 @media(max-width:520px){
  .category-btn{grid-template-columns:45px 1fr 35px;min-height:105px;padding:0 8px}
  .category-btn:hover{padding-left:16px}
