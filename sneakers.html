@@ -48,6 +48,7 @@ header{position:fixed;top:0;left:0;right:0;z-index:60;padding:25px 0;mix-blend-m
 .reveal{opacity:0;transform:translateY(45px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}.reveal.visible{opacity:1;transform:none}
 
 .brands{padding:110px 0 160px}.brands-head{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:2px}.brands-head h2{font-size:clamp(35px,5vw,70px);letter-spacing:-.07em;text-transform:uppercase;line-height:.85}.brands-head span{font-size:9px;letter-spacing:.2em;color:#666;text-transform:uppercase}.brand-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}.brand{min-height:220px;background:#0a0a0a;display:flex;align-items:flex-end;justify-content:space-between;padding:24px;position:relative;overflow:hidden;transition:background .45s ease}.brand:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.07),transparent 65%);transform:translateX(-100%);transition:transform .8s cubic-bezier(.16,1,.3,1)}.brand:hover:before{transform:translateX(100%)}.brand:hover{background:#111}.brand-name{font-size:clamp(30px,4vw,65px);font-weight:900;letter-spacing:-.08em;text-transform:uppercase}.brand-index{position:absolute;left:24px;top:24px;font-size:8px;letter-spacing:.2em;color:#666}.brand-arrow{font-size:22px;transform:translate(-2px,2px);transition:transform .35s}.brand:hover .brand-arrow{transform:translate(4px,-4px)}.catalog{display:none}.brand-note{padding-top:35px;color:#666;font-size:10px;letter-spacing:.16em;text-transform:uppercase;line-height:1.7}
+.subcategories{display:none;padding:65px 0 0}.subcategories.show{display:block}.sub-head{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:2px}.sub-head h3{font-size:clamp(28px,4vw,55px);letter-spacing:-.07em;text-transform:uppercase;line-height:.85}.sub-head span{font-size:9px;letter-spacing:.18em;color:#666;text-transform:uppercase}.sub-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}.sub-item{min-height:130px;background:#0a0a0a;color:#fff;border:0;padding:20px;display:flex;align-items:end;justify-content:space-between;text-align:left;transition:.3s}.sub-item:hover,.sub-item.active{background:#fff;color:#000}.sub-name{font-size:clamp(20px,3vw,42px);font-weight:900;letter-spacing:-.07em;text-transform:uppercase}.sub-index{position:absolute;left:20px;top:18px;font-size:8px;color:#666;letter-spacing:.18em}.sub-item{position:relative}.sub-arrow{font-size:18px}@media(max-width:1000px){.sub-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:500px){.subcategories{padding-top:50px}.sub-grid{grid-template-columns:1fr}.sub-item{min-height:105px;padding:16px}.sub-index{left:16px;top:15px}}
 @media(max-width:1000px){.brand-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:500px){.brands{padding:75px 0 100px}.brand-grid{grid-template-columns:1fr}.brand{min-height:145px;padding:18px}.brand-index{left:18px;top:18px}.brand-name{font-size:39px}.brand-note{font-size:8px}}
 
@@ -96,6 +97,13 @@ header{position:fixed;top:0;left:0;right:0;z-index:60;padding:25px 0;mix-blend-m
  </div>
 </section>
 
+<section class="subcategories" id="subcategorias">
+ <div class="wrap">
+  <div class="sub-head"><h3 id="sub-title">Nike</h3><span id="sub-status">Linhas / modelos</span></div>
+  <div class="sub-grid" id="sub-grid"></div>
+ </div>
+</section>
+
 <section class="catalog" id="catalogo-produtos">
  <div class="wrap">
   <div class="catalog-head reveal"><h2>Todos<br><span>os pares.</span></h2><span id="catalog-status">Catálogo atual</span></div>
@@ -118,25 +126,41 @@ const KEY='highdrip_products_v1';
 function productsFromHash(){try{const m=location.hash.match(/catalog-data=([^&]+)/);if(!m)return null;const d=JSON.parse(decodeURIComponent(m[1]));return Array.isArray(d)?d:null}catch(e){return null}}
 const hashProducts=productsFromHash();
 const defaults=[
- {id:'01',brand:'Nike',name:'Sneaker 01',color:'Green / Blue',price:'',size:'',image:'sneaker-01.jpg'},
- {id:'02',brand:'Adidas',name:'Sneaker 02',color:'Grey / Orange',price:'',size:'',image:'sneaker-02.jpg'},
- {id:'03',brand:'Puma',name:'Sneaker 03',color:'Black / Brown',price:'',size:'',image:'sneaker-03.jpg'},
- {id:'04',brand:'New Balance',name:'Sneaker 04',color:'Selected drop',price:'',size:'',image:'sneaker-04.jpg'},
- {id:'05',brand:'On',name:'Sneaker 05',color:'Selected drop',price:'',size:'',image:'sneaker-05.jpg'},
- {id:'06',brand:'Nike',name:'Sneaker 06',color:'Selected drop',price:'',size:'',image:'sneaker-06.jpg'},
- {id:'07',brand:'Adidas',name:'Sneaker 07',color:'Selected drop',price:'',size:'',image:'sneaker-07.jpg'},
- {id:'08',brand:'Puma',name:'Sneaker 08',color:'Selected drop',price:'',size:'',image:'sneaker-08.jpg'},
- {id:'09',brand:'New Balance',name:'Sneaker 09',color:'Selected drop',price:'',size:'',image:'sneaker-09.jpg'},
- {id:'10',brand:'On',name:'Sneaker 10',color:'Selected drop',price:'',size:'',image:'sneaker-10.jpg'}
+ {id:'01',brand:'Nike',category:'Air Jordan',name:'Sneaker 01',color:'Green / Blue',price:'',size:'',image:'sneaker-01.jpg'},
+ {id:'02',brand:'Adidas',category:'Campus',name:'Sneaker 02',color:'Grey / Orange',price:'',size:'',image:'sneaker-02.jpg'},
+ {id:'03',brand:'Puma',category:'Suede',name:'Sneaker 03',color:'Black / Brown',price:'',size:'',image:'sneaker-03.jpg'},
+ {id:'04',brand:'New Balance',category:'550',name:'Sneaker 04',color:'Selected drop',price:'',size:'',image:'sneaker-04.jpg'},
+ {id:'05',brand:'On',category:'Cloud',name:'Sneaker 05',color:'Selected drop',price:'',size:'',image:'sneaker-05.jpg'},
+ {id:'06',brand:'Nike',category:'Dunk',name:'Sneaker 06',color:'Selected drop',price:'',size:'',image:'sneaker-06.jpg'},
+ {id:'07',brand:'Adidas',category:'Samba',name:'Sneaker 07',color:'Selected drop',price:'',size:'',image:'sneaker-07.jpg'},
+ {id:'08',brand:'Puma',category:'Speedcat',name:'Sneaker 08',color:'Selected drop',price:'',size:'',image:'sneaker-08.jpg'},
+ {id:'09',brand:'New Balance',category:'9060',name:'Sneaker 09',color:'Selected drop',price:'',size:'',image:'sneaker-09.jpg'},
+ {id:'10',brand:'On',category:'Cloudtilt',name:'Sneaker 10',color:'Selected drop',price:'',size:'',image:'sneaker-10.jpg'}
 ];
 let products=hashProducts || JSON.parse(localStorage.getItem(KEY)||'null') || defaults;
 if(hashProducts){try{localStorage.setItem(KEY,JSON.stringify(hashProducts))}catch(e){}}
-function render(filter='Todos'){const catalog=document.getElementById('catalogo-produtos');const grid=document.getElementById('product-grid'); if(!grid||!catalog)return; catalog.style.display='block'; const list=filter==='Todos'?products:products.filter(p=>p.brand===filter); grid.innerHTML=list.length?list.map((p,i)=>`<article class="card reveal visible"><div class="visual"><span class="index">${String(i+1).padStart(2,'0')}</span><img src="${p.image}" alt="${p.name} — ${p.brand}" loading="lazy"></div><div class="info"><div><h3>${p.name}</h3><p>${p.brand} · ${p.color||'Disponibilidade sob consulta'}</p></div><div><p>${p.price?('R$ '+p.price):'Consultar valor'}${p.size?' · '+p.size:''}</p><a class="interest" href="https://api.whatsapp.com/message/2PTSGOAG25RXO1?autoload=1&app_absent=0">Tenho interesse ↗</a></div></div></article>`).join(''):'<div style="padding:50px;color:#777;grid-column:1/-1">Nenhum produto cadastrado nesta marca.</div>'; document.getElementById('catalog-status').textContent=filter==='Todos'?'Catálogo atual':filter; document.getElementById('product-count').textContent=list.length+' '+(list.length===1?'produto':'produtos');}
+function render(filter='Todos', category='Todos'){
+ const catalog=document.getElementById('catalogo-produtos'),grid=document.getElementById('product-grid'); if(!grid||!catalog)return;
+ catalog.style.display='block';
+ const base=filter==='Todos'?products:products.filter(p=>String(p.brand||'').toLowerCase()===String(filter).toLowerCase());
+ const list=category==='Todos'?base:base.filter(p=>String(p.category||'').toLowerCase()===String(category).toLowerCase());
+ grid.innerHTML=list.length?list.map((p,i)=>`<article class="card reveal visible"><div class="visual"><span class="index">${String(i+1).padStart(2,'0')}</span><img src="${p.image}" alt="${p.name} — ${p.brand}" loading="lazy"></div><div class="info"><div><h3>${p.name}</h3><p>${p.brand}${p.category?' · '+p.category:''} · ${p.color||'Disponibilidade sob consulta'}</p></div><div><p>${p.price?('R$ '+p.price):'Consultar valor'}${p.size?' · '+p.size:''}</p><a class="interest" href="https://api.whatsapp.com/message/2PTSGOAG25RXO1?autoload=1&app_absent=0">Tenho interesse ↗</a></div></div></article>`).join(''):'<div style="padding:50px;color:#777;grid-column:1/-1">Nenhum produto cadastrado nesta seleção.</div>';
+ document.getElementById('catalog-status').textContent=category==='Todos'?(filter==='Todos'?'Catálogo atual':filter):category;
+ document.getElementById('product-count').textContent=list.length+' '+(list.length===1?'produto':'produtos');
+}
+function renderSubcategories(brand){
+ const sec=document.getElementById('subcategorias'),grid=document.getElementById('sub-grid');
+ if(brand==='Todos'){sec.classList.remove('show');return;}
+ const cats=[...new Set(products.filter(p=>String(p.brand||'').toLowerCase()===brand.toLowerCase()).map(p=>(p.category||'').trim()).filter(Boolean))];
+ document.getElementById('sub-title').textContent=brand;
+ if(!cats.length){sec.classList.remove('show');return;}
+ sec.classList.add('show');
+ grid.innerHTML=`<button class="sub-item active" data-category="Todos"><span class="sub-index">00</span><strong class="sub-name">Todos</strong><span class="sub-arrow">↗</span></button>`+cats.map((c,i)=>`<button class="sub-item" data-category="${c.replace(/"/g,'&quot;')}"><span class="sub-index">${String(i+1).padStart(2,'0')}</span><strong class="sub-name">${c}</strong><span class="sub-arrow">↗</span></button>`).join('');
+ grid.querySelectorAll('.sub-item').forEach(b=>b.addEventListener('click',()=>{grid.querySelectorAll('.sub-item').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(brand,b.dataset.category);requestAnimationFrame(()=>document.getElementById('catalogo-produtos').scrollIntoView({behavior:'smooth',block:'start'}));}));
+}
 document.querySelectorAll('.brand[data-brand]').forEach(b=>b.addEventListener('click',(e)=>{
- e.preventDefault();
- const brand=b.dataset.brand;
- render(brand);
- history.replaceState(null,'','#catalogo-produtos');
+ e.preventDefault(); const brand=b.dataset.brand; document.querySelectorAll('.brand').forEach(x=>x.classList.remove('active')); b.classList.add('active');
+ renderSubcategories(brand); render(brand,'Todos'); history.replaceState(null,'','#catalogo-produtos');
  requestAnimationFrame(()=>{const catalog=document.getElementById('catalogo-produtos');const top=catalog.getBoundingClientRect().top+window.scrollY-24;window.scrollTo({top,behavior:'smooth'});});
 }));
 render();
