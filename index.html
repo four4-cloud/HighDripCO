@@ -112,17 +112,6 @@ footer{padding:28px 0 40px;color:#555;font-size:9px;letter-spacing:.15em;text-tr
  footer{flex-direction:column;gap:14px}
 }
 
-/* MOBILE SAFETY PATCH — garante o hero visível em Safari/iOS */
-@media(max-width:850px){
- .hero-logo-stage{background:#f5f5f3 !important;color:#050505 !important;opacity:1 !important;visibility:visible !important;}
- .hero-logo-stage .logo-wrap,.hero-logo-stage .welcome,.hero-logo-stage .logo-caption,.hero-logo-stage .scroll{opacity:1 !important;visibility:visible !important;}
- .hero-logo-stage .logo-wrap{transform:none !important;}
- .hero-logo-stage img{display:block !important;opacity:1 !important;visibility:visible !important;filter:none !important;}
- header{mix-blend-mode:normal;}
- header .nav-links a, header .nav-logo{color:#050505;}
- .hero-logo-stage .scroll::after{background:#050505;}
-}
-
 @media(max-width:520px){
  .category-btn{grid-template-columns:45px 1fr 35px;min-height:105px;padding:0 8px}
  .category-btn:hover{padding-left:16px}
@@ -245,6 +234,51 @@ body::before{
 @media(max-width:850px){.scroll-marker{right:13px}.category-btn{min-height:125px}.black-intro::before,.about::before,.showroom::before,.final::before{font-size:55vw}}
 @media(max-width:520px){.hero-logo-stage .scroll::after{height:45px}.category-buttons::before{right:8px}.category-btn{min-height:105px}.final-logo{width:84vw}}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.mega-type-inner{transition:none}.hero-logo-stage .logo-wrap,.hero-logo-stage .welcome,.hero-logo-stage .logo-caption,.hero-logo-stage .scroll,.about-photo,.store-photo,.final-logo{transform:none!important;transition:none!important}}
+
+
+/* MOBILE STABILITY PATCH */
+@media (pointer:coarse){
+  body{cursor:auto}
+  .cursor{display:none!important}
+  header{mix-blend-mode:normal}
+  .hero-logo-stage .logo-wrap{transform:none!important}
+  .about-photo,.store-photo,.final-logo{transform:none!important}
+  .magnetic{transform:none!important}
+}
+@media (max-width:520px){
+  html,body{width:100%;min-width:0;overflow-x:hidden}
+  .wrap{width:calc(100% - 28px)}
+  header{padding:16px 0}
+  .nav{gap:12px}
+  .nav-links{gap:9px;font-size:7px;letter-spacing:.12em}
+  .nav-logo{width:86px}
+  .hero-logo-stage{height:100svh;min-height:560px}
+  .hero-logo-stage .welcome{top:15%;max-width:90vw;text-align:center}
+  .hero-logo-stage .logo-wrap{width:88vw;margin-top:34px}
+  .hero-logo-stage .logo-caption{left:14px;bottom:18px;max-width:45vw}
+  .hero-logo-stage .scroll{right:14px;bottom:18px}
+  .black-intro{padding:76px 0 90px}
+  .intro-title{font-size:clamp(48px,15vw,68px)}
+  .intro-grid{margin-top:48px}
+  .intro-copy{font-size:15px}
+  .mega-type{height:34vw;min-height:130px}
+  .mega-type-inner{font-size:18vw}
+  .products{padding:90px 0}
+  .section-head{margin-bottom:38px}
+  .category-btn{grid-template-columns:38px minmax(0,1fr) 25px;min-height:92px;padding:0 4px}
+  .category-btn strong{font-size:clamp(30px,10.5vw,46px);white-space:nowrap}
+  .category-btn:hover{padding-left:4px}
+  .about{padding:90px 0}
+  .about-photo{height:390px}
+  .showroom{padding:90px 0}
+  .store-photo{height:330px}
+  .final{min-height:70svh}
+  .final h2{font-size:21vw}
+  footer{padding-bottom:28px}
+}
+@media (max-width:850px){
+  .hero-logo-stage{min-height:600px}
+}
 
 </style>
 </head>
@@ -393,7 +427,7 @@ function updateScrollEffects(){
   document.documentElement.style.setProperty('--scroll-progress',Math.min(1,Math.max(0,scrollY/docMax)));
 
   const hero=document.querySelector('.hero-logo-stage');
-  if(hero && !reducedMotion){
+  if(hero && !reducedMotion && matchMedia('(pointer:fine)').matches){
     const heroH=Math.max(1,hero.offsetHeight);
     const p=Math.min(1,Math.max(0,scrollY/heroH));
     hero.style.setProperty('--hero-scale',(1 - p*.17).toFixed(3));
@@ -410,7 +444,7 @@ function updateScrollEffects(){
     if(scrollHint) scrollHint.style.opacity=String(Math.max(0,1-p*3));
   }
 
-  if(!reducedMotion){
+  if(!reducedMotion && matchMedia('(pointer:fine)').matches){
     document.querySelectorAll('.about-photo,.store-photo').forEach(img=>{
       const r=img.getBoundingClientRect();
       const center=r.top+r.height/2;

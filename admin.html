@@ -1,5 +1,33 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ADMIN — HIGH DRIP CO.</title><style>
 *{box-sizing:border-box}body{margin:0;background:#050505;color:#f4f4f2;font-family:Inter,Arial,sans-serif}button,input,select{font:inherit}a{color:inherit;text-decoration:none}.wrap{width:min(1200px,calc(100% - 40px));margin:auto}.top{padding:25px 0;border-bottom:1px solid #252525;display:flex;justify-content:space-between;align-items:center}.brand{font-weight:900;letter-spacing:-.08em;font-size:24px}.back{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#999}.login{min-height:100vh;display:grid;place-items:center}.box{width:min(420px,100%);border:1px solid #292929;padding:34px;background:#0a0a0a}.eyebrow{font-size:9px;letter-spacing:.25em;color:#777;text-transform:uppercase}.box h1{font-size:48px;letter-spacing:-.07em;margin:15px 0 30px}.field{margin:14px 0}.field label{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:#777;margin-bottom:8px}.field input,.field select{width:100%;background:#050505;border:1px solid #333;color:#fff;padding:14px;outline:none}.btn{border:1px solid #555;background:#fff;color:#000;padding:14px 18px;font-weight:900;font-size:9px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer}.btn.dark{background:#111;color:#fff;border-color:#444}.msg{font-size:10px;color:#aaa;margin-top:14px;min-height:14px}.app{display:none;padding-bottom:80px}.dashboard-head{padding:75px 0 35px;display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid #252525}.dashboard-head h1{font-size:clamp(50px,9vw,110px);line-height:.75;letter-spacing:-.1em;margin:15px 0 0}.actions{display:flex;gap:10px;flex-wrap:wrap}.form{margin:30px 0;border:1px solid #292929;padding:25px;background:#0a0a0a}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.full{grid-column:1/-1}.products{margin-top:35px}.product{display:grid;grid-template-columns:90px 1fr auto;gap:18px;align-items:center;padding:14px 0;border-bottom:1px solid #222}.thumb{width:90px;height:90px;object-fit:cover;background:#111}.meta strong{font-size:18px}.meta small{display:block;color:#777;margin-top:6px;font-size:9px;letter-spacing:.12em;text-transform:uppercase}.empty{padding:30px 0;color:#777}.danger{color:#ffb3b3;border-color:#633;background:#180b0b}.hint{font-size:10px;color:#666;line-height:1.7;margin-top:18px}@media(max-width:650px){.form-grid{grid-template-columns:1fr}.full{grid-column:auto}.dashboard-head{display:block}.actions{margin-top:30px}.product{grid-template-columns:65px 1fr}.thumb{width:65px;height:65px}.product .actions{grid-column:2}.box{padding:25px}}
+
+/* MOBILE STABILITY PATCH */
+@media (max-width:650px){
+  html,body{width:100%;min-width:0;overflow-x:hidden}
+  .wrap{width:calc(100% - 28px)}
+  .top{padding:17px 0;gap:12px}
+  .brand{font-size:20px}
+  .back{font-size:8px;text-align:right}
+  .login{padding:18px}
+  .box{width:100%;padding:22px}
+  .box h1{font-size:42px;margin:12px 0 24px}
+  .field{margin:12px 0}
+  .field input,.field select{font-size:16px;padding:13px} /* prevents iOS input zoom */
+  .btn{min-height:44px;padding:12px 14px}
+  .dashboard-head{padding:48px 0 28px}
+  .dashboard-head h1{font-size:20vw;line-height:.8}
+  .actions{gap:8px}
+  .actions .btn{flex:1 1 auto;text-align:center}
+  .form{padding:18px;margin:22px 0}
+  .form-grid{gap:8px}
+  .product{grid-template-columns:58px minmax(0,1fr);gap:12px;padding:12px 0}
+  .thumb{width:58px;height:58px}
+  .meta strong{font-size:14px}
+  .meta small{font-size:7px;line-height:1.45}
+  .product .actions{grid-column:1/-1;margin-top:2px;width:100%}
+  .product .actions .btn{width:calc(50% - 4px)}
+}
+
 </style></head><body>
 <div id="login" class="login"><div class="box"><div class="eyebrow">High Drip Company / Área restrita</div><h1>Admin.</h1><div class="field"><label>Login</label><input id="user" autocomplete="username"></div><div class="field"><label>Senha</label><input id="pass" type="password" autocomplete="current-password"></div><button class="btn" id="loginBtn">Entrar ↗</button><div class="msg" id="loginMsg"></div><p class="hint">Área destinada ao proprietário para cadastrar, editar e remover produtos do catálogo.</p></div></div>
 <div id="app" class="app"><div class="wrap"><div class="top"><div class="brand">HIGH DRIP <small>CO.</small></div><a class="back" href="sneakers.html">← Voltar ao catálogo</a></div><div class="dashboard-head"><div><div class="eyebrow">Área administrativa</div><h1>Seu<br>catálogo.</h1></div><div class="actions"><button class="btn dark" id="logout">Sair</button><a class="btn" href="sneakers.html" id="viewCatalog">Ver catálogo ↗</a></div></div>
